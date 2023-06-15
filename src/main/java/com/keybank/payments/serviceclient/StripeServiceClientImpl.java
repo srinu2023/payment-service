@@ -67,12 +67,19 @@ public class StripeServiceClientImpl implements StripeService {
 			
 			//4.Transfer the amount-Initialize the payment
 			Map<String,Object> params=new HashMap<String,Object>();
-			params.put("amount", 10000);
+			params.put("amount", 2000000);
 			params.put("currency", "usd");
 			params.put("customer", "cus_O1unBCJ6QZfem7");
+			
 			Charge charge=Charge.create(params);
 			System.out.println(charge);
+			
 			System.out.println("Payment has been done");
+			//##
+			StripeResponse stripeResponse=new StripeResponse();
+			stripeResponse.setAckNum(charge.getBalanceTransaction());
+			stripeResponse.setStatus("success");
+			stripeResponse.setDescription("Payment has been done successfully");
 		} catch (StripeException e) {
 			e.printStackTrace();
 		}
